@@ -21,7 +21,7 @@ describe('App Suite test', () => {
   })
 
   describe('/login', () => {
-    it('should login succesfully on the login route and return HTTP Status  200', async () => {
+    it('should login succesfully on the login route and return HTTP Status 200', async () => {
       const response = await request(app)
         .post('/login')
         .send({ username: 'Caique de Camargo', password: '123' })
