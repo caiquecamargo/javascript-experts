@@ -86,7 +86,7 @@ describe('CarService Suite Tests', () => {
 
   })
 
-  it('given a customer and a carCategoryit should return a transaction receipt', async () => {
+  it('given a customer and a carCategory it should return a transaction receipt', async () => {
     const car = mocks.validCar;
     const carCategory = {
       ...mocks.validCarCategory,
