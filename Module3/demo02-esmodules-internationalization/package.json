@@ -1,0 +1,17 @@
+{
+  "name": "demo02-esmodules-internationalization",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "npx nodemon --ignore database.json --exec node --experimental-json-modules src/index.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "chalk-table": "^1.0.2",
+    "draftlog": "^1.0.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
