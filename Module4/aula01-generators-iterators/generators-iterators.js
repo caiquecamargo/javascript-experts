@@ -28,10 +28,34 @@ assert.deepStrictEqual(Array.from(main()), ['Hello', '-', 'World', 200]);
 assert.deepStrictEqual([...main()], ['Hello', '-', 'World', 200]);
 
 // async iterators
-const { readFile, stat, readDir } = require('fs/promises');
+const { readFile, stat, readdir } = require('fs/promises');
 function* promisified() {
   yield readFile(__filename);
   yield Promise.resolve('Hey dude');
 }
 
-Promise.all([...promisified()]).then(result => console.log('promisified', result));
+async function* systemInfo() {
+  const file = await readFile(__filename);
+  yield { file: file.toString() };
+
+  const { size } = await stat(__filename);
+  yield { size };
+
+  const dir = await readdir(__dirname);
+  yield { dir }
+}
+
+// Promise.all([...promisified()]).then(result => console.log('promisified', result));
+// ; (async () => {
+//   for await (const item of promisified()) {
+//     console.log('promisified', item.toString());
+//   }
+// })();
+
+; (async () => {
+  for await (const item of systemInfo()) {
+    console.log('systemInfo', item);
+  }
+})();
+
+
