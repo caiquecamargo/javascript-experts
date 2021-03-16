@@ -15,11 +15,19 @@ assert.deepStrictEqual(user.username, 'value for normal objects');
 assert.deepStrictEqual(user[Symbol('username')], undefined);
 assert.deepStrictEqual(user[uniqueKey], 'value for symbol');
 
+const firstKey = Symbol('teste');
+const secondKey = Symbol('teste');
+assert.deepStrictEqual(firstKey === secondKey, false);
+
 assert.deepStrictEqual(Object.getOwnPropertySymbols(user)[0], uniqueKey);
 
 // byPass - má prática (Não tem nem no repositório do Node)
 user[Symbol.for('password')] = '123';
 assert.deepStrictEqual(user[Symbol.for('password')], '123');
+
+const symbol1 = Symbol.for('symbol1');
+const symbol2 = Symbol.for('symbol1');
+assert.deepStrictEqual(symbol1 === symbol2, true);
 
 // Well Known Symbols
 const obj = {
@@ -101,7 +109,16 @@ assert.deepStrictEqual([...myDate], expectedDates);
 //   }
 // })();
 
+// Chama o Symbol.iterator e não o async iterator
 ; (async () => {
   const dates = await Promise.all([...myDate]);
   assert.deepStrictEqual(dates, expectedDates)
+})();
+
+; (async () => {
+  const dates = []
+  for await (const date of myDate) { dates.push(date) }
+  const expectedDatesInISOString = expectedDates.map(item => item.toISOString())
+
+  assert.deepStrictEqual(dates, expectedDatesInISOString)
 })();
